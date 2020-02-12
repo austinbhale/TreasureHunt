@@ -378,6 +378,10 @@
      <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPPropagationSettings.cs" />
      <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPSettings.cs" />
      <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPVersion.cs" />
+     <Compile Include="Assets\SerializableDictionary\Example\SerializableDictionaryExample.cs" />
+     <Compile Include="Assets\SerializableDictionary\Example\UserSerializableDictionaries.cs" />
+     <Compile Include="Assets\SerializableDictionary\SerializableDictionary.cs" />
+     <Compile Include="Assets\TextFollow.cs" />
      <Compile Include="Assets\TreasureHunter.cs" />
      <Compile Include="Assets\TreasureHunterInventory.cs" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_PC_SingleComponent.shader" />
@@ -591,6 +595,15 @@
  </Reference>
  <Reference Include="UnityEditor">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.17f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.Editor">
+ <HintPath>C:/Users/haleau/Documents/Comp590-vr/A2/TreasureHunt/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.StandardEvents">
+ <HintPath>C:/Users/haleau/Documents/Comp590-vr/A2/TreasureHunt/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.Tracker">
+ <HintPath>C:/Users/haleau/Documents/Comp590-vr/A2/TreasureHunt/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.17f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -956,9 +969,17 @@
       <Project>{5847c7d8-2758-3020-4e71-acb0d0cc53d5}</Project>
       <Name>Unity.VSCode.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Recorder.Editor.csproj">
+      <Project>{032c0ed3-934c-d986-312f-c5f92d60724c}</Project>
+      <Name>Unity.Recorder.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{f9041aaa-f1dc-65e9-0b23-9a0b9ae1de3d}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Recorder.csproj">
+      <Project>{89e9746b-afc4-0082-b39f-cb87f01f8759}</Project>
+      <Name>Unity.Recorder</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{dd3d27ff-fa36-ce1a-cc0c-81244394c1b7}</Project>
@@ -975,6 +996,10 @@
     <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
       <Project>{dbc06ec2-4f57-fb06-f3e6-15847563e3b8}</Project>
       <Name>Unity.Postprocessing.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.XR.LegacyInputHelpers.csproj">
+      <Project>{8a5ea293-e426-c107-c294-996e5ea8c554}</Project>
+      <Name>UnityEngine.XR.LegacyInputHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Rider.Editor.csproj">
       <Project>{950a4d5f-0458-e458-84ee-f79f44fa9038}</Project>
@@ -996,9 +1021,25 @@
       <Project>{9d7a22c5-4a06-e1a0-f061-31cdc6b6f92e}</Project>
       <Name>Oculus.VR</Name>
     </ProjectReference>
+    <ProjectReference Include="UnityEditor.SpatialTracking.csproj">
+      <Project>{3383d69b-8ec5-6726-48ee-6d4ba6591f83}</Project>
+      <Name>UnityEditor.SpatialTracking</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.SpatialTracking.csproj">
+      <Project>{35a6d9c6-a447-c164-ec69-696d6e6a3e71}</Project>
+      <Name>UnityEngine.SpatialTracking</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
       <Project>{97cb907d-c4a7-dd24-dc0b-2d2189814856}</Project>
       <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Analytics.DataPrivacy.csproj">
+      <Project>{fb5d3273-0f36-a816-0914-f4426a664bb1}</Project>
+      <Name>Unity.Analytics.DataPrivacy</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.XR.LegacyInputHelpers.csproj">
+      <Project>{61f6b197-719e-7549-db36-f6012a9eb1cb}</Project>
+      <Name>UnityEditor.XR.LegacyInputHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{06437dcb-03d3-52c2-8579-98fdf79edb39}</Project>
