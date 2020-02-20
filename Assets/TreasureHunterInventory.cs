@@ -15,9 +15,13 @@ public class TreasureHunterInventory : MonoBehaviour
     void Start() {
         viewpointCamera = this.gameObject.GetComponent<Camera>();
         prefabs = new Dictionary<GameObject, int>();
-        prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/3rd Person Controller.prefab", typeof(GameObject)), 0);
-        prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/SoccerBallPf.prefab", typeof(GameObject)), 0);
-        prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/ToyT-BlockPf.prefab", typeof(GameObject)), 0);
+        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/3rd Person Controller.prefab", typeof(GameObject)), 0);
+        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/SoccerBallPf.prefab", typeof(GameObject)), 0);
+        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/ToyT-BlockPf.prefab", typeof(GameObject)), 0);
+        // to build apk
+        // prefabs.Add((GameObject)Resources.Load("Assets/Prefabs/3rd Person Controller.prefab", typeof(GameObject)), 0);
+        // prefabs.Add((GameObject)Resources.Load("Assets/Prefabs/SoccerBallPf.prefab", typeof(GameObject)), 0);
+        // prefabs.Add((GameObject)Resources.Load("Assets/Prefabs/ToyT-BlockPf.prefab", typeof(GameObject)), 0);
     }
 
     void Update() {

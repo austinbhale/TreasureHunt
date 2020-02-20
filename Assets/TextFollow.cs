@@ -5,6 +5,7 @@ using UnityEngine;
 public class TextFollow : MonoBehaviour
 {
     Camera camera;
+    public int forwardOffset = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class TextFollow : MonoBehaviour
     void Update()
     {
         // Set transform forward and rotate to look at target camera.
-        transform.position = camera.transform.position + camera.transform.forward * 8;
+        transform.position = camera.transform.position + camera.transform.forward * forwardOffset;
         transform.LookAt(camera.transform);
         transform.Rotate(0,180,0);
     }
