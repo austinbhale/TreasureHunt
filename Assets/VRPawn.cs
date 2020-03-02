@@ -10,8 +10,10 @@ public class VRPawn : MonoBehaviour
     public GameObject grabObject;
     public LayerMask collectiblesMask;
     
+    // For triggering a trap on a collectible.
+    private bool trapTriggered;
+    
     public CollectibleDictionary collectibleInventory;
-    Dictionary<GameObject, int> prefabs;
     int numCollected = 0;
     float totalValue = 0;
     
@@ -23,31 +25,29 @@ public class VRPawn : MonoBehaviour
     void Start()
     {
         updateText = GameObject.Find("Score").GetComponent<TextMesh>();
-        
-        prefabs = new Dictionary<GameObject, int>();
-        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/BillardBall03Pf.prefab", typeof(GameObject)), 0);
-        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/SoccerBallPf.prefab", typeof(GameObject)), 0);
-        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/BillardBall10Pf.prefab", typeof(GameObject)), 0);
-        // To build apk
-        prefabs.Add((GameObject)Resources.Load("Prefabs/BillardBall03Pf", typeof(GameObject)), 0);
-        prefabs.Add((GameObject)Resources.Load("Prefabs/SoccerBallPf", typeof(GameObject)), 0);
-        prefabs.Add((GameObject)Resources.Load("Prefabs/BillardBall10Pf", typeof(GameObject)), 0);
-        prefabs.Add((GameObject)Resources.Load("Prefabs/OculusWaterBottlePf", typeof(GameObject)), 0);
+        trapTriggered = false;
         updateScore();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Adds a Rigidbody and impulse force to the OVRPlayerController when triggered.
+        if (trapTriggered) {
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>() as Rigidbody;
+            rb = GetComponent<Rigidbody>();
+            rb.AddForce(-20f, 30f, 20f, ForceMode.Impulse);
+        }
+
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger)) {
             
             RaycastHit outHit;
             if (Physics.Raycast(grabObject.transform.position, grabObject.transform.forward, out outHit)) {
                 
-                Collider[] overlappingObjs = Physics.OverlapSphere(grabObject.transform.position, 1f, collectiblesMask);
+                Collider[] overlappingObjs = Physics.OverlapSphere(grabObject.transform.position, 0.5f, collectiblesMask);
                 if (overlappingObjs.Length > 0) {
-                    // updateText.text = "hit = " + overlappingObjs[0].gameObject;
-                    thingIGrabbed=overlappingObjs[0].gameObject.GetComponent<Collectible>();
+                    thingIGrabbed = overlappingObjs[0].gameObject.GetComponent<Collectible>();
+                    trapTriggered = (thingIGrabbed.name == "trap") ? true : false;
                     attachGameObjectToChild(overlappingObjs[0].gameObject, grabObject, AttachmentRule.KeepWorld, AttachmentRule.KeepWorld, AttachmentRule.KeepWorld, true);
                 }
             }
@@ -119,20 +119,20 @@ public class VRPawn : MonoBehaviour
     void letGo() 
     {
         if (thingIGrabbed){
-            Collider[] objectOnCone = Physics.OverlapSphere(grabObject.transform.position,1f,collectiblesMask);
+            Collider[] objectOnCone = Physics.OverlapSphere(grabObject.transform.position,0.5f,collectiblesMask);
             if (objectOnCone.Length > 0) {
                 bool rangeValid = checkRange(objectOnCone[0].gameObject);
-                if (rangeValid) {
-                    foreach (KeyValuePair<GameObject, int> pair in prefabs) {
-                        if (objectOnCone[0].gameObject.GetComponent<Collectible>().name == pair.Key.name) {
-                            totalValue += pair.Key.GetComponent<Collectible>().value;
-                            if (!collectibleInventory.ContainsKey(pair.Key.GetComponent<Collectible>())) {
-                                collectibleInventory[pair.Key.GetComponent<Collectible>()] = 1;
-                            } else {
-                                collectibleInventory[pair.Key.GetComponent<Collectible>()]++;
-                            }
+                if (rangeValid && thingIGrabbed != null) {
+                    if (objectOnCone[0].gameObject.GetComponent<Collectible>().name == thingIGrabbed.name) {
+                        totalValue += thingIGrabbed.value;
+                        GameObject prefab = Resources.Load("Prefabs/" + objectOnCone[0].gameObject.GetComponent<Collectible>().name) as GameObject;
+                        if (!collectibleInventory.ContainsKey(prefab.GetComponent<Collectible>())) {
+                            collectibleInventory[prefab.GetComponent<Collectible>()] = 1;
+                        } else {
+                            collectibleInventory[prefab.GetComponent<Collectible>()]++;
                         }
                     }
+
                     numCollected++;
                     detachGameObject(objectOnCone[0].gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
                     Destroy(objectOnCone[0].gameObject);
@@ -165,11 +165,11 @@ public class VRPawn : MonoBehaviour
     void updateScore()
     {
         string addText = "Austin Hale\nItem | Value | Count\n";
-        foreach (KeyValuePair<GameObject, int> pair in prefabs) {
-            if (collectibleInventory.ContainsKey(pair.Key.GetComponent<Collectible>())) {
-                addText += pair.Key.GetComponent<Collectible>().name + " | " +
-                    pair.Key.GetComponent<Collectible>().value + " | " +
-                    collectibleInventory[pair.Key.GetComponent<Collectible>()] + "\n";
+        foreach (Collectible key in collectibleInventory.Keys) {
+            if (collectibleInventory.ContainsKey(key)) {
+                addText += key.name + " | " +
+                    key.value + " | " +
+                    collectibleInventory[key] + "\n";
             }
         }
         addText += "Total Value: " + totalValue;

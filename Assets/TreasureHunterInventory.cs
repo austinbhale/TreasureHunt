@@ -7,21 +7,17 @@ public class TreasureHunterInventory : MonoBehaviour
 {
     // public List<Collectible> inventoryItems = new List<Collectible>();
     public CollectibleDictionary collectibleInventory;
+    Collectible thingIGrabbed;
     Camera viewpointCamera;
     int numCollected = 0;
     float totalValue = 0;
-    Dictionary<GameObject, int> prefabs;
+    // Dictionary<GameObject, int> prefabs;
+
+    // private Rigidbody rb;
 
     void Start() {
         viewpointCamera = this.gameObject.GetComponent<Camera>();
-        prefabs = new Dictionary<GameObject, int>();
-        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/3rd Person Controller.prefab", typeof(GameObject)), 0);
-        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/SoccerBallPf.prefab", typeof(GameObject)), 0);
-        // prefabs.Add((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/ToyT-BlockPf.prefab", typeof(GameObject)), 0);
-        // to build apk
-        // prefabs.Add((GameObject)Resources.Load("Assets/Prefabs/3rd Person Controller.prefab", typeof(GameObject)), 0);
-        // prefabs.Add((GameObject)Resources.Load("Assets/Prefabs/SoccerBallPf.prefab", typeof(GameObject)), 0);
-        // prefabs.Add((GameObject)Resources.Load("Assets/Prefabs/ToyT-BlockPf.prefab", typeof(GameObject)), 0);
+        // rb = GetComponent<Rigidbody>();
     }
 
     void Update() {
@@ -34,16 +30,29 @@ public class TreasureHunterInventory : MonoBehaviour
             if (Physics.Raycast(ray, out hit)) {
                 if (hit.transform.gameObject.GetComponent<Collectible>() != null) {
                     int keyIndex = 0;
-                    foreach (KeyValuePair<GameObject, int> pair in prefabs) {
-                        if (hit.transform.gameObject.GetComponent<Collectible>().name == pair.Key.name) {
-                            totalValue += pair.Key.GetComponent<Collectible>().value;
-                            if (!collectibleInventory.ContainsKey(pair.Key.GetComponent<Collectible>())) {
-                                collectibleInventory[pair.Key.GetComponent<Collectible>()] = 1;
+                    // foreach (KeyValuePair<GameObject, int> pair in prefabs) {
+
+                        if (hit.transform.gameObject.GetComponent<Collectible>()) {
+                            totalValue += hit.transform.gameObject.GetComponent<Collectible>().value;
+                            Debug.Log(hit.transform.gameObject.GetComponent<Collectible>().name);
+                            // GameObject c = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Resources/Prefabs/" + hit.transform.gameObject.GetComponent<Collectible>().name + ".prefab", typeof(GameObject));
+                            GameObject c = (GameObject)Resources.Load("Assets/Resources/Prefabs/" + hit.transform.gameObject.GetComponent<Collectible>().name + ".prefab", typeof(GameObject));
+                            if (!collectibleInventory.ContainsKey(c.GetComponent<Collectible>())) {
+                                // thingIGrabbed = c.GetComponent<Collectible>();
+                                // AssetDatabase.LoadAssetAtPath("Prefabs/"+ thingIGrabbed.name + ".prefab");
+                                collectibleInventory[c.GetComponent<Collectible>()] = 1;
                             } else {
-                                collectibleInventory[pair.Key.GetComponent<Collectible>()]++;
+                                collectibleInventory[c.GetComponent<Collectible>()]++;
                             }
                         }
-                    }
+
+                        // if (!collectibleInventory.ContainsKey(thingIGrabbed)) {
+                            
+                        //     collectibleInventory[thingIGrabbed] = 1;
+                        // } else {
+                        //     collectibleInventory[thingIGrabbed]++;
+                        // }
+                    // }
 
                     numCollected++;
                     Destroy(hit.transform.gameObject);
