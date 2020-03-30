@@ -1,6 +1,9 @@
 # Treasure Hunt
 
 ### A Timeline of Events (most recent first)
+#### Virtual Locomotion with Redirected Walking - S2C Algorithm
+[![Virtual Locomotion with Redirected Walking](https://img.youtube.com/vi/w7uHLgH6BeQ/0.jpg)](https://youtu.be/w7uHLgH6BeQ)
+
 #### Evoking Physiological Responses
 [![Evoking Physiological Responses](https://img.youtube.com/vi/vSr9oo_cdw4/0.jpg)](https://youtu.be/vSr9oo_cdw4)
 
