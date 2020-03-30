@@ -1,9 +1,11 @@
 # Treasure Hunt
+A timeline of projects for the UNC course Intro to VR, Game Dev, and HCI (most recent first).
 
-### A Timeline of Events (most recent first)
+## Unreal Engine
 #### Virtual Locomotion with Redirected Walking - S2C Algorithm
 [![Virtual Locomotion with Redirected Walking](https://img.youtube.com/vi/w7uHLgH6BeQ/0.jpg)](https://youtu.be/w7uHLgH6BeQ)
 
+## Unity
 #### Evoking Physiological Responses
 [![Evoking Physiological Responses](https://img.youtube.com/vi/vSr9oo_cdw4/0.jpg)](https://youtu.be/vSr9oo_cdw4)
 
